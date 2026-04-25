@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { ShieldCheck, Heart, PieChart, CheckCircle2, IndianRupee } from 'lucide-react';
 
 const Donate = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [amount, setAmount] = useState(1000);
   const [isMonthly, setIsMonthly] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -21,7 +21,12 @@ const Donate = () => {
     setTimeout(() => setIsSuccess(false), 5000);
   };
 
-  const fundingAllocation = [
+  const fundingAllocation = language === 'te' ? [
+    { label: 'విద్య', percent: 45, color: '#3B82F6' },
+    { label: 'ఆరోగ్యం', percent: 30, color: '#10B981' },
+    { label: 'గ్రామీణ అభివృద్ధి', percent: 15, color: '#F97316' },
+    { label: 'నిర్వహణ', percent: 10, color: '#94A3B8' },
+  ] : [
     { label: 'Education', percent: 45, color: '#3B82F6' },
     { label: 'Healthcare', percent: 30, color: '#10B981' },
     { label: 'Rural Dev', percent: 15, color: '#F97316' },
@@ -89,8 +94,8 @@ const Donate = () => {
             </form>
 
             <div className="trust-badges">
-              <div className="badge"><ShieldCheck size={16} /> 100% Secure</div>
-              <div className="badge"><CheckCircle2 size={16} /> 80G Tax Exempt</div>
+              <div className="badge"><ShieldCheck size={16} /> {language === 'te' ? '100% సురక్షితం' : '100% Secure'}</div>
+              <div className="badge"><CheckCircle2 size={16} /> {language === 'te' ? '80G పన్ను మినహాయింపు' : '80G Tax Exempt'}</div>
             </div>
           </motion.div>
 
@@ -98,7 +103,7 @@ const Donate = () => {
           <div className="donate-impact-side">
             <div className="goal-container glass-effect">
               <div className="goal-header">
-                <h3>Campaign Progress</h3>
+                <h3>{language === 'te' ? 'కార్యక్రమం ప్రగతి' : 'Campaign Progress'}</h3>
                 <span className="goal-percent">{Math.round(progress)}%</span>
               </div>
               <div className="progress-track">
@@ -122,7 +127,7 @@ const Donate = () => {
             </div>
 
             <div className="allocation-card glass-effect">
-              <h3>Where your money goes</h3>
+              <h3>{language === 'te' ? 'మీ డబ్బు ఎక్కడికి వెళుతుంది' : 'Where your money goes'}</h3>
               <div className="allocation-list">
                 {fundingAllocation.map((item, idx) => (
                   <div key={idx} className="allocation-item">
@@ -166,9 +171,9 @@ const Donate = () => {
               <div className="success-icon">
                 <Heart fill="var(--secondary)" size={64} color="var(--secondary)" />
               </div>
-              <h2>Thank You!</h2>
-              <p>Your donation of ₹{amount} has been received. You are a hero!</p>
-              <button onClick={() => setIsSuccess(false)} className="close-success">Close</button>
+              <h2>{language === 'te' ? 'ధన్యవాదాలు!' : 'Thank You!'}</h2>
+              <p>{language === 'te' ? `మీ ₹${amount} విరాళం అందుకుంది. మీరు నిజమైన వీరుడు!` : `Your donation of ₹${amount} has been received. You are a hero!`}</p>
+              <button onClick={() => setIsSuccess(false)} className="close-success">{language === 'te' ? 'మూసివేయండి' : 'Close'}</button>
             </motion.div>
           </motion.div>
         )}
@@ -176,7 +181,7 @@ const Donate = () => {
 
       <style jsx="true">{`
         .donate-section {
-          background: #020617;
+          background: var(--bg-dark);
         }
 
         .donate-grid {
@@ -516,3 +521,4 @@ const Donate = () => {
 };
 
 export default Donate;
+

@@ -35,7 +35,7 @@ const Partners = () => {
       <style jsx="true">{`
         .partners-section {
           padding: 60px 0;
-          background: #020617;
+          background: var(--bg-dark);
           border-top: 1px solid var(--glass-border);
           border-bottom: 1px solid var(--glass-border);
         }
@@ -115,3 +115,4 @@ const Partners = () => {
 };
 
 export default Partners;
+

@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { Heart, MessageCircle, Send, LayoutGrid, Globe, ArrowUp } from 'lucide-react';
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const navigate = useNavigate();
 
   const handleScrollTop = () => {
@@ -22,7 +22,9 @@ const Footer = () => {
               <span className="logo-text">HopeRise</span>
             </Link>
             <p className="brand-desc">
-              Dedicated to empowering communities and creating a sustainable future for all through education, healthcare, and social equity.
+              {language === 'te'
+                ? 'విద్య, ఆరోగ్య సంరక్షణ మరియు సామాజిక న్యాయం ద్వారా అందరికీ స్థిరమైన భవిష్యత్తును రూపొందించడానికి అంకితమైన సంస్థ.'
+                : 'Dedicated to empowering communities and creating a sustainable future for all through education, healthcare, and social equity.'}
             </p>
             <div className="social-links">
               <a href="#"><MessageCircle size={20} /></a>
@@ -34,7 +36,7 @@ const Footer = () => {
 
           {/* Links Column */}
           <div className="footer-links">
-            <h4>Quick Links</h4>
+            <h4>{language === 'te' ? 'త్వరిత లింక్‌లు' : 'Quick Links'}</h4>
             <ul>
               <li><Link to="/about">{t('nav.about')}</Link></li>
               <li><Link to="/programs">{t('nav.programs')}</Link></li>
@@ -46,7 +48,7 @@ const Footer = () => {
 
           {/* Impact Column */}
           <div className="footer-links">
-            <h4>Impact Areas</h4>
+            <h4>{language === 'te' ? 'ప్రభావ రంగాలు' : 'Impact Areas'}</h4>
             <ul>
               <li><Link to="/programs">{t('programs.education')}</Link></li>
               <li><Link to="/programs">{t('programs.health')}</Link></li>
@@ -57,8 +59,8 @@ const Footer = () => {
 
           {/* Mini CTA Column */}
           <div className="footer-cta">
-            <h4>Join the movement</h4>
-            <p>Every small action counts. Be the change today.</p>
+            <h4>{language === 'te' ? 'ఉద్యమంలో చేరండి' : 'Join the movement'}</h4>
+            <p>{language === 'te' ? 'ప్రతి చిన్న చర్య లెక్కిస్తుంది. ఈరోజు మార్పు అవ్వండి.' : 'Every small action counts. Be the change today.'}</p>
             <button className="footer-donate-btn" onClick={() => navigate('/donate')}>
               {t('nav.donate')}
             </button>
@@ -71,10 +73,10 @@ const Footer = () => {
 
 
         <div className="footer-bottom">
-          <p>© 2024 HopeRise Foundation. All Rights Reserved.</p>
+          <p>© 2024 HopeRise Foundation. {language === 'te' ? 'అన్ని హక్కులు మిగులు.' : 'All Rights Reserved.'}</p>
           <div className="bottom-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <a href="#">{language === 'te' ? 'గోప్యతా విధానం' : 'Privacy Policy'}</a>
+            <a href="#">{language === 'te' ? 'సేవా నిబంధనలు' : 'Terms of Service'}</a>
           </div>
           <button className="scroll-top-btn" onClick={handleScrollTop}>
             <ArrowUp size={20} />
@@ -84,7 +86,7 @@ const Footer = () => {
 
       <style jsx="true">{`
         .footer-section {
-          background: #020617;
+          background: var(--bg-dark);
           border-top: 1px solid var(--glass-border);
           padding: 80px 0 30px;
         }
@@ -288,3 +290,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

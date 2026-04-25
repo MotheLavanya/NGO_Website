@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { FileText, Download, CheckCircle, BarChart3, ArrowUpRight } from 'lucide-react';
 
 const Transparency = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [downloadingIdx, setDownloadingIdx] = React.useState(null);
 
   const handleDownload = (idx) => {
@@ -12,13 +12,22 @@ const Transparency = () => {
     setTimeout(() => setDownloadingIdx(null), 2000); // Reset after 2s
   };
 
-  const reports = [
+  const reports = language === 'te' ? [
+    { year: '2023-24', name: 'వార్షిక ప్రభావ నివేదిక', size: '2.4 MB', type: 'PDF' },
+    { year: '2022-23', name: 'ఆర్థిక ఆడిట్ వివరణం', size: '1.8 MB', type: 'PDF' },
+    { year: '2021-22', name: 'సముదాయ సేవల సారాంశం', size: '3.1 MB', type: 'PDF' },
+  ] : [
     { year: '2023-24', name: 'Annual Impact Report', size: '2.4 MB', type: 'PDF' },
     { year: '2022-23', name: 'Financial Audit Statement', size: '1.8 MB', type: 'PDF' },
     { year: '2021-22', name: 'Community Outreach Summary', size: '3.1 MB', type: 'PDF' },
   ];
 
-  const auditSteps = [
+  const auditSteps = language === 'te' ? [
+    { year: '2016', label: 'మొదటి బాహ్య ఆడిట్', status: 'పూర్తైంది' },
+    { year: '2019', label: 'ISO 9001 సర్టిఫికేషన్', status: 'చురుగుగా ఉంది' },
+    { year: '2022', label: 'గైడ్‌స్టార్ ప్లాటినం సీల్', status: 'ప్రదానం చేయబడింది' },
+    { year: '2024', label: 'త్రెయిమాసిక గ్రాంట్ సమీక్ష', status: 'జరుగుతుంది' },
+  ] : [
     { year: '2016', label: 'First External Audit', status: 'Completed' },
     { year: '2019', label: 'ISO 9001 Certification', status: 'Active' },
     { year: '2022', label: 'GuideStar Platinum Seal', status: 'Awarded' },
@@ -58,16 +67,16 @@ const Transparency = () => {
             <div className="live-tracker">
               <div className="tracker-header">
                 <BarChart3 size={20} color="var(--secondary)" />
-                <h4>Live Fund Usage</h4>
+                <h4>{language === 'te' ? 'లైవ్ నిధుల వినియోగం' : 'Live Fund Usage'}</h4>
               </div>
               <div className="tracker-bars">
                 <div className="tracker-bar">
-                  <span>Program Services</span>
+                  <span>{language === 'te' ? 'కార్యక్రమ సేవలు' : 'Program Services'}</span>
                   <div className="bar-track"><motion.div initial={{width: 0}} whileInView={{width: '85%'}} style={{background: 'var(--secondary)'}} /></div>
                   <span>85%</span>
                 </div>
                 <div className="tracker-bar">
-                  <span>Administration</span>
+                  <span>{language === 'te' ? 'నిర్వహణ' : 'Administration'}</span>
                   <div className="bar-track"><motion.div initial={{width: 0}} whileInView={{width: '10%'}} style={{background: '#94A3B8'}} /></div>
                   <span>10%</span>
                 </div>
@@ -83,7 +92,7 @@ const Transparency = () => {
           >
             <div className="card-header">
               <h3>{t('transparency.reports')}</h3>
-              <button className="view-archive">View Archive <ArrowUpRight size={16} /></button>
+              <button className="view-archive">{language === 'te' ? 'ఆర్కైవ్ చూడండి' : 'View Archive'} <ArrowUpRight size={16} /></button>
             </div>
             <div className="reports-table">
               {reports.map((report, idx) => (
@@ -118,7 +127,7 @@ const Transparency = () => {
 
       <style jsx="true">{`
         .transparency-section {
-          background: #0f172a;
+          background: var(--bg-alt);
         }
 
         .transparency-grid {
@@ -384,3 +393,4 @@ const Transparency = () => {
 };
 
 export default Transparency;
+

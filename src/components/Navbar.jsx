@@ -17,6 +17,23 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!document.getElementById('google-translate-script')) {
+      window.googleTranslateElementInit = () => {
+        new window.google.translate.TranslateElement(
+          { pageLanguage: 'en', autoDisplay: false },
+          'google_translate_element'
+        );
+      };
+
+      const script = document.createElement('script');
+      script.id = 'google-translate-script';
+      script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
   const mainLinks = [
     { name: t('nav.home'), href: '/' },
     { name: t('nav.about'), href: '/about' },
@@ -24,32 +41,18 @@ const Navbar = () => {
     { name: t('nav.contact'), href: '/contact' },
   ];
 
-  const exploreLinks = [
-    { 
-      name: 'Impact Stories', 
-      desc: 'Real people. Real change. Real impact.', 
-      href: '/impact' 
-    },
-    { 
-      name: 'Testimonials', 
-      desc: 'Voices of Hope: Hear from our community and supporters.', 
-      href: '/testimonials' 
-    },
-    { 
-      name: 'Community', 
-      desc: 'Join the Movement: Explore ways to contribute and help.', 
-      href: '/community' 
-    },
-    { 
-      name: 'Transparency', 
-      desc: 'Trust & Clarity: Access our audited financial reports.', 
-      href: '/transparency' 
-    },
-    { 
-      name: 'Blog', 
-      desc: 'Latest Updates: Stories and insights from the field.', 
-      href: '/blog' 
-    },
+  const exploreLinks = language === 'te' ? [
+    { name: 'ప్రభావ కథలు', desc: 'నిజమైన వ్యక్తులు. నిజమైన మార్పు. నిజమైన ప్రభావం.', href: '/impact' },
+    { name: 'సాక్ష్యాలు', desc: 'ఆశా గళు: మన సమాజం మరియు మద్దతుదారుల నుండి వినండి.', href: '/testimonials' },
+    { name: 'కమ్యూనిటీ', desc: 'ఉద్యమంలో చేరండి: సహకరించడానికి మార్గాలను అన్వేషించండి.', href: '/community' },
+    { name: 'పారదర్శకత', desc: 'నమ్మకం మరియు స్పష్టత: మా ఆడిట్ చేయబడిన ఆర్థిక నివేదికలు చూడండి.', href: '/transparency' },
+    { name: 'బ్లాగ్', desc: 'తాజా అప్డేట్‌లు: క్షేత్రం నుండి కథలు మరియు అంతర్దృష్టులు.', href: '/blog' },
+  ] : [
+    { name: 'Impact Stories', desc: 'Real people. Real change. Real impact.', href: '/impact' },
+    { name: 'Testimonials', desc: 'Voices of Hope: Hear from our community and supporters.', href: '/testimonials' },
+    { name: 'Community', desc: 'Join the Movement: Explore ways to contribute and help.', href: '/community' },
+    { name: 'Transparency', desc: 'Trust & Clarity: Access our audited financial reports.', href: '/transparency' },
+    { name: 'Blog', desc: 'Latest Updates: Stories and insights from the field.', href: '/blog' },
   ];
 
   return (
@@ -80,7 +83,7 @@ const Navbar = () => {
             onMouseLeave={() => setIsDropdownOpen(false)}
           >
             <button className="dropdown-trigger">
-              Explore <ChevronDown size={16} className={isDropdownOpen ? 'rotated' : ''} />
+              {language === 'te' ? 'అన్వేషించండి' : 'Explore'} <ChevronDown size={16} className={isDropdownOpen ? 'rotated' : ''} />
             </button>
             <div className={`dropdown-menu ${isDropdownOpen ? 'visible' : ''}`}>
               {exploreLinks.map((link) => (
@@ -103,10 +106,7 @@ const Navbar = () => {
           </div>
 
           <div className="nav-actions">
-            <button className="lang-toggle" onClick={toggleLanguage} title="Switch Language">
-              <Globe size={18} />
-              <span>{language === 'en' ? 'తెలుగు' : 'English'}</span>
-            </button>
+            <div id="google_translate_element" className="google-translate-container"></div>
             <Link 
               to="/donate"
               className="cta-button-nav glass-effect"
@@ -214,7 +214,7 @@ const Navbar = () => {
           top: 100%;
           left: 50%;
           transform: translateX(-50%) translateY(10px);
-          background: #0f172a;
+          background: var(--bg-alt);
           border: 1px solid var(--glass-border);
           border-radius: var(--radius-lg);
           min-width: 320px;
@@ -318,7 +318,7 @@ const Navbar = () => {
             right: -100%;
             height: 100vh;
             width: 100%;
-            background: #020617;
+            background: var(--bg-dark);
             flex-direction: column;
             justify-content: flex-start;
             padding: 8rem 2rem 2rem;
@@ -407,3 +407,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

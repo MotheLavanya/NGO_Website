@@ -15,22 +15,40 @@ import {
 } from 'lucide-react';
 
 const About = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [showVideo, setShowVideo] = useState(false);
 
-  const timeline = [
-    { year: '2015', event: 'Founded with a vision to educate 100 kids.', icon: <Target size={18} /> },
-    { year: '2018', event: 'Expanded to 5 states, helping 5000+ families.', icon: <Award size={18} /> },
-    { year: '2021', event: 'Recognized for Healthcare Excellence in Rural areas.', icon: <Award size={18} /> },
-    { year: '2024', event: 'Launched National Youth Empowerment Program.', icon: <Award size={18} /> },
-  ];
+  const timelineData = {
+    en: [
+      { year: '2015', event: 'Founded with a vision to educate 100 kids.', icon: <Target size={18} /> },
+      { year: '2018', event: 'Expanded to 5 states, helping 5000+ families.', icon: <Award size={18} /> },
+      { year: '2021', event: 'Recognized for Healthcare Excellence in Rural areas.', icon: <Award size={18} /> },
+      { year: '2024', event: 'Launched National Youth Empowerment Program.', icon: <Award size={18} /> },
+    ],
+    te: [
+      { year: '2015', event: '100 పిల్లలకు విద్య అందించాలనే దార్శనికతతో స్థాపించబడింది.', icon: <Target size={18} /> },
+      { year: '2018', event: '5 రాష్ట్రాలకు విస్తరించి, 5000+ కుటుంబాలకు సహాయం చేసింది.', icon: <Award size={18} /> },
+      { year: '2021', event: 'గ్రామీణ ప్రాంతాలలో ఆరోగ్య సంరక్షణ శ్రేష్ఠతకు గుర్తింపు పొందింది.', icon: <Award size={18} /> },
+      { year: '2024', event: 'జాతీయ యువత సాధికారత కార్యక్రమాన్ని ప్రారంభించింది.', icon: <Award size={18} /> },
+    ]
+  };
+  const timeline = timelineData[language] || timelineData.en;
 
-  const values = [
-    { name: t('about.value1'), icon: <Heart size={24} />, desc: 'Putting humanity and empathy at the heart of every decision.' },
-    { name: t('about.value2'), icon: <ShieldCheck size={24} />, desc: '100% transparency in fund allocation and impact reporting.' },
-    { name: t('about.value3'), icon: <Zap size={24} />, desc: 'Creating long-term systems, not just temporary fixes.' },
-    { name: t('about.value4'), icon: <Users size={24} />, desc: 'Collaborating with community leaders for sustainable growth.' },
-  ];
+  const valuesData = {
+    en: [
+      { name: t('about.value1'), icon: <Heart size={24} />, desc: 'Putting humanity and empathy at the heart of every decision.' },
+      { name: t('about.value2'), icon: <ShieldCheck size={24} />, desc: '100% transparency in fund allocation and impact reporting.' },
+      { name: t('about.value3'), icon: <Zap size={24} />, desc: 'Creating long-term systems, not just temporary fixes.' },
+      { name: t('about.value4'), icon: <Users size={24} />, desc: 'Collaborating with community leaders for sustainable growth.' },
+    ],
+    te: [
+      { name: t('about.value1'), icon: <Heart size={24} />, desc: 'ప్రతి నిర్ణయంలో మానవత్వం మరియు సానుభూతిని కేంద్రంగా ఉంచడం.' },
+      { name: t('about.value2'), icon: <ShieldCheck size={24} />, desc: 'నిధుల కేటాయింపు మరియు ప్రభావ నివేదికలో 100% పారదర్శకత.' },
+      { name: t('about.value3'), icon: <Zap size={24} />, desc: 'తాత్కాలిక పరిష్కారాలు కాకుండా దీర్ఘకాలిక వ్యవస్థలను రూపొందించడం.' },
+      { name: t('about.value4'), icon: <Users size={24} />, desc: 'స్థిరమైన వృద్ధి కోసం కమ్యూనిటీ నాయకులతో సహకరించడం.' },
+    ]
+  };
+  const values = valuesData[language] || valuesData.en;
 
   return (
     <section id="about" className="about-section section-padding">
@@ -54,9 +72,9 @@ const About = () => {
             <span className="section-badge">{t('about.title')}</span>
             <h2 className="section-title">{t('about.subtitle')}</h2>
             <p className="about-description">
-              HopeRise Foundation began with a simple belief: every human being deserves a chance to thrive. 
-              Over the last decade, we have worked tirelessly at the grassroots level to break the cycle of 
-              poverty through education, healthcare, and sustainable livelihood programs.
+              {language === 'te'
+                ? 'హోప్‌రైజ్ ఫౌండేషన్ ఒక సరళమైన నమ్మకంతో ప్రారంభమైంది: ప్రతి మానవుడికి వర్ధిల్లే అవకాశం ఉండాలి. గత దశాబ్దంలో, మేము విద్య, ఆరోగ్య సంరక్షణ మరియు స్థిరమైన జీవనోపాధి కార్యక్రమాల ద్వారా పేదరిక చక్రాన్ని విచ్ఛిన్నం చేయడానికి గ్రాసురూట్ స్థాయిలో అలుపెరుగకుండా కృషి చేసాము.'
+                : 'HopeRise Foundation began with a simple belief: every human being deserves a chance to thrive. Over the last decade, we have worked tirelessly at the grassroots level to break the cycle of poverty through education, healthcare, and sustainable livelihood programs.'}
             </p>
 
             <div className="timeline-container">

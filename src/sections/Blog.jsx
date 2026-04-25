@@ -4,9 +4,37 @@ import { useLanguage } from '../context/LanguageContext';
 import { Calendar, User, ArrowRight, Tag } from 'lucide-react';
 
 const Blog = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
-  const posts = [
+  const posts = language === 'te' ? [
+    {
+      id: 1,
+      title: 'స్మార్ట్ తరగతి గదులు గ్రామీణ విద్యను ఎలా మార్చుతున్నాయి',
+      excerpt: 'ప్రభుత్వ పాఠశాలల్లో డిజిటల్ సాధనాల ప్రభావంపై లోతైన విశ్లేషణ...',
+      date: 'ఏప్రిల్ 10, 2024',
+      author: 'డా. సారా జేమ్స్',
+      category: 'విద్య',
+      img: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800'
+    },
+    {
+      id: 2,
+      title: 'మహిళా సాధికారత ఆర్థిక వ్యవస్థలను ఎందుకు పెంచుతుంది',
+      excerpt: 'మహిళలకు ఆర్థిక స్వాతంత్ర్యం కేవలం సామాజిక లక్ష్యం మాత్రమే కాదు; ఇది ఆర్థిక చాలక...',
+      date: 'ఏప్రిల్ 05, 2024',
+      author: 'లక్ష్మీ రెడ్డి',
+      category: 'సాధికారత',
+      img: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800'
+    },
+    {
+      id: 3,
+      title: 'మా స్వచ్ఛమైన నీటి చొరవ  50 గ్రామాలకు చేరింది',
+      excerpt: 'కరవు ప్రభావిత జిల్లాలలో 50వ శుద్ధీకరణ కేంద్రాన్ని వ్యవస్థాపించిన మైలురాయి సాధించాము...',
+      date: 'మార్చి 28, 2024',
+      author: 'జాన్ డో',
+      category: 'మురుగు',
+      img: 'https://images.unsplash.com/photo-1538300342682-cf57afb97285?q=80&w=800'
+    }
+  ] : [
     {
       id: 1,
       title: 'How Smart Classrooms are Changing Rural Education',
@@ -77,7 +105,7 @@ const Blog = () => {
 
       <style jsx="true">{`
         .blog-section {
-          background: #020617;
+          background: var(--bg-dark);
         }
 
         .blog-grid {
@@ -226,3 +254,4 @@ const Blog = () => {
 };
 
 export default Blog;
+

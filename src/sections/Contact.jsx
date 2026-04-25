@@ -4,10 +4,10 @@ import { useLanguage } from '../context/LanguageContext';
 import { MessageSquare, Mail, Phone, MapPin, Send, Bot, X, CheckCircle2 } from 'lucide-react';
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isBotOpen, setIsBotOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hello! I'm HopeBot. How can I assist you with your donation or volunteer queries today?", isBot: true }
+    { text: language === 'te' ? "నమస్కారం! నేను హోప్‌బాట్. విరాళాలు లేదా వాలంటీర్ ప్రశ్నలతో నేను మీకు ఎలా సహాయం చేయగలను?" : "Hello! I'm HopeBot. How can I assist you with your donation or volunteer queries today?", isBot: true }
   ]);
   const [inputValue, setInputValue] = useState('');
 
@@ -77,8 +77,8 @@ const Contact = () => {
                 <div className="success-icon">
                   <CheckCircle2 color="var(--success)" size={48} />
                 </div>
-                <h3>Message Sent!</h3>
-                <p>Thank you for reaching out. We will get back to you shortly.</p>
+                <h3>{language === 'te' ? 'సందేశం పంపబడింది!' : 'Message Sent!'}</h3>
+                <p>{language === 'te' ? 'సంప్రదించినందుకు ధన్యవాదాలు. మేము త్వరలో మిమ్మల్ని సంప్రదిస్తాము.' : 'Thank you for reaching out. We will get back to you shortly.'}</p>
               </motion.div>
             )}
           </motion.div>
@@ -89,21 +89,21 @@ const Contact = () => {
               <div className="info-item glass-effect">
                 <Mail className="info-icon" />
                 <div>
-                  <h4>Email Us</h4>
+                  <h4>{language === 'te' ? 'ఇమెయిల్ చేయండి' : 'Email Us'}</h4>
                   <p>hello@hoperise.org</p>
                 </div>
               </div>
               <div className="info-item glass-effect">
                 <Phone className="info-icon" />
                 <div>
-                  <h4>Call Us</h4>
+                  <h4>{language === 'te' ? 'ఫోన్ చేయండి' : 'Call Us'}</h4>
                   <p>+91 98765 43210</p>
                 </div>
               </div>
               <div className="info-item glass-effect">
                 <MapPin className="info-icon" />
                 <div>
-                  <h4>Visit Us</h4>
+                  <h4>{language === 'te' ? 'సందర్శించండి' : 'Visit Us'}</h4>
                   <p>Cyber Towers, HITEC City, Hyderabad, TS</p>
                 </div>
               </div>
@@ -112,7 +112,7 @@ const Contact = () => {
             <div className="map-placeholder glass-effect">
               <div className="map-overlay">
                 <MapPin size={40} color="var(--secondary)" />
-                <span>Interactive Map Loading...</span>
+                <span>{language === 'te' ? 'ఇంటరాక్టివ్ మాప్ లోడ్ అవుతుంది...' : 'Interactive Map Loading...'}</span>
               </div>
               {/* Mock Map Background */}
               <div className="mock-map"></div>
@@ -134,7 +134,7 @@ const Contact = () => {
               <div className="chatbot-header">
                 <div className="bot-info">
                   <Bot size={24} />
-                  <span>HopeBot (AI Support)</span>
+                  <span>HopeBot ({language === 'te' ? 'AI సహాయం' : 'AI Support'})</span>
                 </div>
                 <button onClick={() => setIsBotOpen(false)}><X size={20} /></button>
               </div>
@@ -163,13 +163,13 @@ const Contact = () => {
           onClick={() => setIsBotOpen(!isBotOpen)}
         >
           {isBotOpen ? <X /> : <MessageSquare />}
-          <span className="trigger-label">Talk to AI</span>
+          <span className="trigger-label">{language === 'te' ? 'AIతో మాట్లాడండి' : 'Talk to AI'}</span>
         </button>
       </div>
 
       <style jsx="true">{`
         .contact-section {
-          background: #0f172a;
+          background: var(--bg-alt);
           padding: 40px 0;
         }
 
@@ -481,3 +481,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

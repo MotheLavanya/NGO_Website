@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { Users, Handshake, BookOpen, Calendar, ArrowRight, Bell } from 'lucide-react';
 
 const GetInvolved = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const opportunities = [
     {
@@ -12,25 +12,29 @@ const GetInvolved = () => {
       desc: t('getInvolved.volunteerDesc'),
       icon: <Users size={24} />,
       color: '#3B82F6',
-      backContent: '1,200+ volunteers already joined. Help in teaching, medical camps, or admin support.'
+      backContent: language === 'te' ? '1,200+ వాలంటీర్లు ఇప్పటికే చేరారు. బోధన, వైద్య శిబిరాలు లేదా నిర్వహణ మద్దతులో సహాయం చేయండి.' : '1,200+ volunteers already joined. Help in teaching, medical camps, or admin support.'
     },
     {
       title: t('getInvolved.partner'),
       desc: t('getInvolved.partnerDesc'),
       icon: <Handshake size={24} />,
       color: '#F97316',
-      backContent: 'Collaborate with us for CSR activities or joint community projects. Let’s scale the impact.'
+      backContent: language === 'te' ? 'CSR కార్యక్రమాలు లేదా సంయుక్త సమాజ ప్రాజెక్టుల కోసం మాతో సహకరించండి. ప్రభావాన్ని పెంచుదాం.' : 'Collaborate with us for CSR activities or joint community projects. Let’s scale the impact.'
     },
     {
       title: t('getInvolved.intern'),
       desc: t('getInvolved.internDesc'),
       icon: <BookOpen size={24} />,
       color: '#10B981',
-      backContent: '8-week programs available. Gain hands-on experience in social work and NGO management.'
+      backContent: language === 'te' ? '8-వారాల కార్యక్రమాలు అందుబాటులో ఉన్నాయి. సామాజిక సేవలో ఆచరణాత్మక అనుభవం పొందండి.' : '8-week programs available. Gain hands-on experience in social work and NGO management.'
     }
   ];
 
-  const upcomingEvents = [
+  const upcomingEvents = language === 'te' ? [
+    { date: 'మే 15', title: 'ఆరోగ్య శిబిరం - వరంగల్', time: 'ఉ.9:00' },
+    { date: 'జూన్ 02', title: 'ఉపాధ్యాయ శిక్షణ వర్క్‌షాప్', time: 'ఉ.10:30' },
+    { date: 'జూన్ 20', title: 'వేసవి రక్తదాన శిబిరం', time: 'ఉ.8:00' },
+  ] : [
     { date: 'MAY 15', title: 'Health Camp - Warangal', time: '9:00 AM' },
     { date: 'JUN 02', title: 'Teacher Training Workshop', time: '10:30 AM' },
     { date: 'JUN 20', title: 'Summer Blood Donation Drive', time: '8:00 AM' },
@@ -67,19 +71,19 @@ const GetInvolved = () => {
                   </div>
                   <h3>{opp.title}</h3>
                   <p>{opp.desc}</p>
-                  <div className="flip-hint">Hover to flip <ArrowRight size={14} /></div>
+                  <div className="flip-hint">{language === 'te' ? 'తిప్పడానికి హోవర్ చేయండి' : 'Hover to flip'} <ArrowRight size={14} /></div>
                 </div>
                 
                 {/* Back Side */}
                 <div className="flip-card-back" style={{ background: appliedIdx === idx ? 'var(--success)' : opp.color }}>
-                  <h3>{appliedIdx === idx ? 'Application Sent!' : `Join as ${opp.title}`}</h3>
-                  <p>{appliedIdx === idx ? 'Thank you for your interest. Our team will contact you shortly via email.' : opp.backContent}</p>
+                  <h3>{appliedIdx === idx ? (language === 'te' ? 'దరఖాస్తు పంపబడింది!' : 'Application Sent!') : `${language === 'te' ? 'చేరండి' : 'Join as'} ${opp.title}`}</h3>
+                  <p>{appliedIdx === idx ? (language === 'te' ? 'మీ ఆసక్తికి ధన్యవాదాలు. మా బృందం త్వరలో ఇమెయిల్ ద్వారా మిమ్మల్ని సంప్రదిస్తుంది.' : 'Thank you for your interest. Our team will contact you shortly via email.') : opp.backContent}</p>
                   <button 
                     className="opp-apply-btn"
                     onClick={() => handleApply(idx)}
                     disabled={appliedIdx === idx}
                   >
-                    {appliedIdx === idx ? 'Success ✓' : t('getInvolved.cta')}
+                    {appliedIdx === idx ? (language === 'te' ? 'విజయం ✓' : 'Success ✓') : t('getInvolved.cta')}
                   </button>
                 </div>
               </motion.div>
@@ -95,7 +99,7 @@ const GetInvolved = () => {
         >
           <div className="events-header">
             <Calendar className="calendar-icon" />
-            <h3>Upcoming Events</h3>
+            <h3>{language === 'te' ? 'రాబోయే ఈవెంట్లు' : 'Upcoming Events'}</h3>
           </div>
           <div className="events-list">
             {upcomingEvents.map((ev, idx) => (
@@ -114,7 +118,7 @@ const GetInvolved = () => {
 
       <style jsx="true">{`
         .involved-section {
-          background: #020617;
+          background: var(--bg-dark);
         }
 
         .involved-grid {
@@ -340,3 +344,4 @@ const GetInvolved = () => {
 };
 
 export default GetInvolved;
+

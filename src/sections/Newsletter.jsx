@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { Mail, Send, CheckCircle } from 'lucide-react';
 
 const Newsletter = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -59,7 +59,7 @@ const Newsletter = () => {
                 className="subscribed-msg"
               >
                 <CheckCircle size={20} color="var(--success)" />
-                <span>Subscribed successfully!</span>
+                <span>{language === 'te' ? 'సఫలంగా సబ్‌స్క్రైబ్ చేయబడింది!' : 'Subscribed successfully!'}</span>
               </motion.div>
             )}
           </div>
@@ -69,7 +69,7 @@ const Newsletter = () => {
       <style jsx="true">{`
         .newsletter-section {
           padding: 40px 0;
-          background: #020617;
+          background: var(--bg-dark);
           border-top: 1px solid var(--glass-border);
         }
 
@@ -269,3 +269,4 @@ const Newsletter = () => {
 };
 
 export default Newsletter;
+

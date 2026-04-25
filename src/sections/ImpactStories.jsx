@@ -4,11 +4,36 @@ import { useLanguage } from '../context/LanguageContext';
 import { MessageSquare, Quote, X, ChevronRight, ChevronLeft } from 'lucide-react';
 
 const ImpactStories = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedStory, setSelectedStory] = useState(null);
   const [sliderIndex, setSliderIndex] = useState(0);
 
-  const stories = [
+  const stories = language === 'te' ? [
+    {
+      id: 1,
+      name: 'రవి కుమార్',
+      age: 12,
+      location: 'గ్రామీణ తెలంగాణ',
+      title: 'చక్రాన్ని విచ్ఛిన్నం చేస్తున్నాం',
+      summary: 'రవి కుటుంబాన్ని పోషించడానికి పొలాలల్లో పని చేసేవాడు. ఇప్పుడు, అతను తన స్మార్ట్ తరగతి గదిలో అగ్రశ్రేణి విద్యార్థి.',
+      content: 'రవి కుమార్కి 10 సంవత్సరాల వయస్సులోనే తన తల్లిదండ్రులకు పోలాల్లోను సహాయపడటం ప్రారంభించాడు. హోప్‌రైజ్ జోక్యం అయ్యాక, ఇండ్లో చదువు అతని కల అయింది. ఇప్పుడు అతను ఇంటర్నెట్ సౌలభ్యం ఉన్న పాఠశాలలో చదువుతున్నాడు.',
+      img: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800',
+      before: 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=400',
+      after: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=400'
+    },
+    {
+      id: 2,
+      name: 'లక్ష్మీ దేవి',
+      age: 34,
+      location: 'వరంగల్ జిల్లా',
+      title: 'స్వాతంత్ర్యాన్ని స్వీకరిస్తున్నాము',
+      summary: 'మా మహిళా స్వయం సహాయక గ్రూపు కార్యక్రమం ద్వారా ఇబ్బంది ఇల్లాలు నుండి వ్యాపారవేత్త వరకు.',
+      content: 'లక్ష్మీ 2021లో మా స్వయం సహాయక గ్రూపులో చేరింది. చిన్న రుణం మరియు వృత్తి శిక్షణతో తన స్వంత టేలరింగ్ వ్యాపారాన్ని ప్రారంభించింది. ఇప్పుడు, ఆమె తన గ్రామం నుంచి నలుగురు మహిళలకు ఉద్యోగాలు ఇచ్చి ఇరు కూతురులను కాలేజికి పంపడానికి సంపాదిస్తుంది.',
+      img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800',
+      before: 'https://images.unsplash.com/photo-1489980507512-29705d0ff44b?q=80&w=400',
+      after: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=400'
+    }
+  ] : [
     {
       id: 1,
       name: 'Ravi Kumar',
@@ -38,6 +63,8 @@ const ImpactStories = () => {
   const nextSlide = () => setSliderIndex((prev) => (prev + 1) % stories.length);
   const prevSlide = () => setSliderIndex((prev) => (prev - 1 + stories.length) % stories.length);
 
+  const ageLabel = language === 'te' ? 'వయస్సు' : 'Age';
+
   return (
     <section id="impact" className="stories-section section-padding">
       <div className="container">
@@ -64,7 +91,7 @@ const ImpactStories = () => {
               </div>
               <div className="story-content-side">
                 <div className="story-meta">
-                  <span>{stories[sliderIndex].location}</span> • <span>Age {stories[sliderIndex].age}</span>
+                  <span>{stories[sliderIndex].location}</span> • <span>{ageLabel} {stories[sliderIndex].age}</span>
                 </div>
                 <h3>{stories[sliderIndex].title}</h3>
                 <p className="story-excerpt">
@@ -112,8 +139,8 @@ const ImpactStories = () => {
             </motion.div>
           ))}
           <div className="faces-text">
-            <h4>+12,500 Faces of Hope</h4>
-            <p>Every face has a unique journey of resilience.</p>
+            <h4>{language === 'te' ? '+12,500 ఆశా ముఖాలు' : '+12,500 Faces of Hope'}</h4>
+            <p>{language === 'te' ? 'ప్రతి ముఖం స్థితిస్థాపకత యొక్క విలక్షణమైన ప్రయాణాన్ని కలిగి ఉంది.' : 'Every face has a unique journey of resilience.'}</p>
           </div>
         </div>
       </div>
